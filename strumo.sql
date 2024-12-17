@@ -1,178 +1,104 @@
--- phpMyAdmin SQL Dump
--- version 5.1.1
--- https://www.phpmyadmin.net/
---
--- Host: 127.0.0.1
--- Generation Time: Nov 16, 2022 at 03:11 AM
--- Server version: 10.4.22-MariaDB
--- PHP Version: 8.1.1
+/*
+ Navicat Premium Dump SQL
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
-SET time_zone = "+00:00";
+ Source Server         : Local
+ Source Server Type    : MySQL
+ Source Server Version : 100432 (10.4.32-MariaDB)
+ Source Host           : localhost:3306
+ Source Schema         : strumo
 
+ Target Server Type    : MySQL
+ Target Server Version : 100432 (10.4.32-MariaDB)
+ File Encoding         : 65001
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+ Date: 17/12/2024 20:40:08
+*/
 
---
--- Database: `strumo`
---
+SET NAMES utf8mb4;
+SET FOREIGN_KEY_CHECKS = 0;
 
--- --------------------------------------------------------
-
---
--- Table structure for table `admin`
---
-
-CREATE TABLE `admin` (
-  `admin_id` int(10) NOT NULL,
+-- ----------------------------
+-- Table structure for admin
+-- ----------------------------
+DROP TABLE IF EXISTS `admin`;
+CREATE TABLE `admin`  (
+  `admin_id` int NOT NULL AUTO_INCREMENT,
   `user` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `pass` varchar(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `pass` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  PRIMARY KEY (`admin_id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
---
--- Dumping data for table `admin`
---
+-- ----------------------------
+-- Records of admin
+-- ----------------------------
+INSERT INTO `admin` VALUES (1, 'admin', 'admin');
 
-INSERT INTO `admin` (`admin_id`, `user`, `pass`) VALUES
-(1, 'admin', 'admin');
+-- ----------------------------
+-- Table structure for orders
+-- ----------------------------
+DROP TABLE IF EXISTS `orders`;
+CREATE TABLE `orders`  (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `item_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `price` int NOT NULL,
+  `quantity` int NOT NULL,
+  `order_id` int NOT NULL DEFAULT current_timestamp,
+  `orderedby` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `address` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `phoneno` bigint NOT NULL,
+  `payment_mode` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
--- --------------------------------------------------------
+-- ----------------------------
+-- Records of orders
+-- ----------------------------
+INSERT INTO `orders` VALUES (1, 'Mokshya', 20000, 5, 51, 'Biraj adhikari', 'Nepal', 9821959500, 'COD');
 
---
--- Table structure for table `orders`
---
-
-CREATE TABLE `orders` (
-  `id` int(20) NOT NULL,
-  `item_name` varchar(50) NOT NULL,
-  `price` int(20) NOT NULL,
-  `quantity` int(20) NOT NULL,
-  `order_id` int(20) NOT NULL DEFAULT current_timestamp(),
-  `orderedby` varchar(50) NOT NULL,
-  `address` varchar(50) NOT NULL,
-  `phoneno` bigint(10) NOT NULL,
-  `payment_mode` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `orders`
---
-
-INSERT INTO `orders` (`id`, `item_name`, `price`, `quantity`, `order_id`, `orderedby`, `address`, `phoneno`, `payment_mode`) VALUES
-(1, 'Mokshya', 20000, 5, 51, 'Bimochan Bajimaya', 'Chabahil', 9860232480, 'COD');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `products`
---
-
-CREATE TABLE `products` (
-  `productid` int(11) NOT NULL,
-  `name` varchar(100) NOT NULL,
-  `photo` varchar(255) NOT NULL,
+-- ----------------------------
+-- Table structure for products
+-- ----------------------------
+DROP TABLE IF EXISTS `products`;
+CREATE TABLE `products`  (
+  `productid` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `photo` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `brand` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` text NOT NULL,
-  `category` varchar(11) NOT NULL,
+  `description` text CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `category` varchar(11) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `isActive` tinyint(1) NOT NULL DEFAULT 1,
   `isFeatured` tinyint(1) NOT NULL DEFAULT 1,
-  `price` int(11) NOT NULL,
-  `stock` int(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `price` int NOT NULL,
+  `stock` int NOT NULL,
+  PRIMARY KEY (`productid`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
---
--- Dumping data for table `products`
---
+-- ----------------------------
+-- Records of products
+-- ----------------------------
+INSERT INTO `products` VALUES (1, 'American Dream', 'american_dream.jpeg', 'Taylor', 'American Dream from US', 'Acoustic', 1, 1, 100000, 15);
+INSERT INTO `products` VALUES (2, 'Avatar', 'Avatar.jpg', 'Mantra', 'Color: Light Brown\nSize:40 inch\nBack/Fretboard/Neck/TopMaterial Type: Basswood/Rosewood/Basswood/Basswood\nType: Acoustic\nNumber of String: 6\nPick up: Tuner 4 line equalizer\nHand Orientation: Right Handed\nIncluded: Bag, Mantra string, Mantra Capo, Mantra Picks, Mantra strap and Mantra Certificate\nWarranty: 1 Year\nServicing: 3 Times Free Servicing at Guitarshop Nepal', 'SemiAcous', 1, 1, 10000, 150);
+INSERT INTO `products` VALUES (3, 'Mokshya', 'Mokshya.jpg', 'Mantra', 'Color: Brown\r\nSize:40 inch\r\nBack, Fretboard & Neck Material Type: Rosewood\r\nTopMaterial Type: Solid Spruce\r\nType: Acoustic\r\nNumber of String: 6\r\nPick up: Tuner 4 line equalizer\r\nHand Orientation: Right Handed\r\nIncluded: Bag, Mantra string, Mantra Capo, Mantra Picks, Mantra strap and Mantra Certificate\r\nWarranty: 1 Year\r\nServicing: 3 Times Free Servicing At Guitarshop Nepal', 'SemiAcous', 1, 1, 20000, 115);
 
-INSERT INTO `products` (`productid`, `name`, `photo`, `brand`, `description`, `category`, `isActive`, `isFeatured`, `price`, `stock`) VALUES
-(1, 'American Dream', 'american_dream.jpeg', 'Taylor', 'American Dream from US', 'Acoustic', 1, 1, 100000, 15),
-(2, 'Avatar', 'Avatar.jpg', 'Mantra', 'Color: Light Brown\nSize:40 inch\nBack/Fretboard/Neck/TopMaterial Type: Basswood/Rosewood/Basswood/Basswood\nType: Acoustic\nNumber of String: 6\nPick up: Tuner 4 line equalizer\nHand Orientation: Right Handed\nIncluded: Bag, Mantra string, Mantra Capo, Mantra Picks, Mantra strap and Mantra Certificate\nWarranty: 1 Year\nServicing: 3 Times Free Servicing at Guitarshop Nepal', 'SemiAcous', 1, 1, 10000, 150),
-(3, 'Mokshya', 'Mokshya.jpg', 'Mantra', 'Color: Brown\r\nSize:40 inch\r\nBack, Fretboard & Neck Material Type: Rosewood\r\nTopMaterial Type: Solid Spruce\r\nType: Acoustic\r\nNumber of String: 6\r\nPick up: Tuner 4 line equalizer\r\nHand Orientation: Right Handed\r\nIncluded: Bag, Mantra string, Mantra Capo, Mantra Picks, Mantra strap and Mantra Certificate\r\nWarranty: 1 Year\r\nServicing: 3 Times Free Servicing At Guitarshop Nepal', 'SemiAcous', 1, 1, 20000, 115);
+-- ----------------------------
+-- Table structure for users
+-- ----------------------------
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE `users`  (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `fullname` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `address` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `phone` bigint NOT NULL,
+  `email` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `username` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `password` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
--- --------------------------------------------------------
+-- ----------------------------
+-- Records of users
+-- ----------------------------
+INSERT INTO `users` VALUES (3, 'Biraj Adhikari', 'NEpal', 9861496014, 'biraj@gmail.com', 'BirajAd', 'BirajBiraj');
+INSERT INTO `users` VALUES (4, 'Biraj Adhikari', 'Dhumbarahi', 9821959500, 'birajadhikari@gmail.com', 'biraj', 'BiraJ1234%');
 
---
--- Table structure for table `users`
---
-
-CREATE TABLE `users` (
-  `id` int(20) NOT NULL,
-  `fullname` varchar(30) NOT NULL,
-  `address` varchar(50) NOT NULL,
-  `phone` bigint(10) NOT NULL,
-  `email` varchar(50) NOT NULL,
-  `username` varchar(20) NOT NULL,
-  `password` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `users`
---
-
-INSERT INTO `users` (`id`, `fullname`, `address`, `phone`, `email`, `username`, `password`) VALUES
-(3, 'Bimochan Bajimaya', 'Chabahil', 9860232480, 'bmochanb@gmail.com', 'bimochan07', 'bimochan07');
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `admin`
---
-ALTER TABLE `admin`
-  ADD PRIMARY KEY (`admin_id`);
-
---
--- Indexes for table `orders`
---
-ALTER TABLE `orders`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `products`
---
-ALTER TABLE `products`
-  ADD PRIMARY KEY (`productid`);
-
---
--- Indexes for table `users`
---
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `admin`
---
-ALTER TABLE `admin`
-  MODIFY `admin_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT for table `orders`
---
-ALTER TABLE `orders`
-  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `products`
---
-ALTER TABLE `products`
-  MODIFY `productid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT for table `users`
---
-ALTER TABLE `users`
-  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+SET FOREIGN_KEY_CHECKS = 1;
